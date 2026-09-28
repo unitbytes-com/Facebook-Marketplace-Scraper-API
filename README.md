@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://console.apify.com/actors/IQsB6JNeAU1T4AOYz/input" target="_blank">
-    <img src="https://raw.githubusercontent.com/unitbytes-com/.github/main/assets/banners/unitbytes-facebook-marketplace-deals-car-scraper-banner.jpg" alt="Facebook Marketplace Scraper API by UnitBytes" width="100%" />
+    <img src="https://raw.githubusercontent.com/unitbytes-com/Facebook-Marketplace-Scraper-API/main/assets/Facebook_MarketPlace_Scraper.png" alt="Facebook Marketplace Scraper API by UnitBytes" width="100%" />
   </a>
 </p>
 
