@@ -9,7 +9,7 @@
     <img src="https://raw.githubusercontent.com/unitbytes-com/.github/main/assets/try-it-for-free.svg" width="240" height="48" alt="Try it for Free">
   </a>
   <br>
-  <sub>⚡ <b>1-Click Free Trial:</b> Test live queries using Apify's  free monthly credit • No credit card required</sub>
+  <sub>⚡ <b>1-Click Free Trial:</b> Test live queries using Apify's free monthly credit • No credit card required</sub>
 </p>
 
 # 🛒 Facebook Marketplace Scraper — Fast, Complete & Cost-Effective
@@ -20,7 +20,6 @@ Extract high-value market data in seconds without paying for bloated browser com
 Scrape **40+ fields per listing** — full HD image galleries, seller intelligence (star ratings & reviews), vehicle specs (VIN, mileage, transmission), full descriptions, and price history — across **any city, category, or country**. No login, no cookies, and no proxy configuration needed.
 
 ---
-
 
 <table>
   <tr>
@@ -46,6 +45,15 @@ Scrape **40+ fields per listing** — full HD image galleries, seller intelligen
 
 ---
 
+## 🚀 How to Scrape Facebook Marketplace in 4 Steps
+
+1. **Set your Search or URLs**: Enter a keyword (e.g. `toyota camry`, `iphone 15`, `leather sofa`) and target city (e.g. `losangeles`, `chicago`, `miami`), or paste direct Facebook Marketplace URLs into `start_urls`.
+2. **Configure Optional Filters**: Set minimum/maximum price, maximum listing age (`days_since_listed`), item condition, or search radius.
+3. **Click Start**: The scraper executes lightweight, direct requests with built-in residential IP rotation — no login or browser cookies required.
+4. **Export Clean Data**: Download your results in **JSON**, **CSV**, **Excel**, **XML**, or integrate automatically with Google Sheets, Make, Zapier, or via API.
+
+---
+
 ## ⚡ Pre-Configured 1-Click Tasks & Common Use Cases
 
 Skip manual parameter setup. Launch these ready-to-use task presets directly in 1 click or inspect full configuration details:
@@ -60,6 +68,7 @@ Skip manual parameter setup. Launch these ready-to-use task presets directly in 
 | **Find Undervalued Electronics & Tech for Reselling Arbitrage** | Scan Facebook Marketplace for underpriced iPhones, MacBooks, GPUs, and gaming consoles for reselling arbitrage. | [⚡ Run Task Preset](https://console.apify.com/create-task-from-example/TareXsaYsvCc4FnPA?fpr=939u3w&fp_sid=gh_fb) | [📖 View Task Page](https://apify.com/unitbytes/Facebook-Marketplace-Scraper/examples/electronics-flipping-arbitrage?fpr=939u3w&fp_sid=gh_fb) |
 | **Monitor Deals on Furniture, Tools & Home Goods** | Track bargain furniture, power tools, and home appliances posted on FB Marketplace for fast local pickup and flipping. | [⚡ Run Task Preset](https://console.apify.com/create-task-from-example/79Or6m5hWTtms30es?fpr=939u3w&fp_sid=gh_fb) | [📖 View Task Page](https://apify.com/unitbytes/Facebook-Marketplace-Scraper/examples/furniture-home-goods-deals?fpr=939u3w&fp_sid=gh_fb) |
 | **Track Competitor Dealership Inventory & Price Drops** | Monitor dealer listings in your metro area to benchmark inventory levels, newly posted vehicles, and competitive pricing. | [⚡ Run Task Preset](https://console.apify.com/create-task-from-example/p0nHnLGE1t4zJMC0P?fpr=939u3w&fp_sid=gh_fb) | [📖 View Task Page](https://apify.com/unitbytes/Facebook-Marketplace-Scraper/examples/competitor-dealer-listing-tracker?fpr=939u3w&fp_sid=gh_fb) |
+
 ---
 
 ## ⚡ Why Choose This Scraper?
@@ -126,6 +135,57 @@ Every listing is enriched with structured data and automatic category detection:
 
 ---
 
+## 📥 Input Parameters
+
+Every input parameter in `INPUT_SCHEMA.json` is fully configurable:
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `search_query` | string | `"vehicles"` | Search keywords (e.g. `toyota camry`, `iphone 15`, `leather sofa`) |
+| `city_slug` | string | `"sanfrancisco"` | Target city (e.g. `sanfrancisco`, `losangeles`, `newyork`, `chicago`, `miami`) |
+| `start_urls` | array | `[]` | Paste direct Facebook Marketplace Search, Category, or Item URLs |
+| `min_price` | integer | `1000` | Minimum price filter in dollars |
+| `max_price` | integer | `10000` | Maximum price filter in dollars |
+| `max_results` | integer | `10` | Maximum number of listings to collect |
+| `days_since_listed` | integer | `7` | Maximum listing age in days (`1` = last 24h, `7` = past week, `30` = past month) |
+| `sort_by` | string | `"price_ascend"` | Sort options: `best_match`, `price_ascend`, `distance_ascend`, `creation_time_descend` |
+| `item_condition` | string | `"used"` | Condition filter: `all`, `new`, `used` |
+| `radius` | integer | `500` | Search radius in kilometers (up to 500km) |
+| `category_id` | string | `""` | Optional Facebook Marketplace Category ID |
+| `fast_mode` | boolean | `false` | Scrapes search feed results rapidly without opening individual listing pages |
+| `include_all_photos` | boolean | `true` | Extract full 10–30+ HD photo carousel & videos via GraphQL. Disable for primary photo only |
+| `enable_seller_intel` | boolean | `false` | Deep-scrape seller profile for star rating, review count, and join year |
+| `concurrency` | integer | `5` | Parallel workers (1–10). Recommended: 3–5 |
+| `proxy_configuration` | object | `Residential` | Built-in proxy configuration. Apify Residential proxies recommended |
+
+---
+
+## 📋 Sample Input JSON
+
+```json
+{
+  "search_query": "honda civic",
+  "city_slug": "chicago",
+  "min_price": 2000,
+  "max_price": 12000,
+  "max_results": 50,
+  "days_since_listed": 7,
+  "sort_by": "price_ascend",
+  "item_condition": "used",
+  "radius": 500,
+  "fast_mode": false,
+  "include_all_photos": true,
+  "enable_seller_intel": false,
+  "concurrency": 5,
+  "proxy_configuration": {
+    "useApifyProxy": true,
+    "apifyProxyGroups": ["RESIDENTIAL"]
+  }
+}
+```
+
+---
+
 ## 🖼️ Sample JSON Output
 
 ```json
@@ -161,41 +221,33 @@ Every listing is enriched with structured data and automatic category detection:
 
 ---
 
-## 📥 Input Parameters
+## 📊 Export Formats & Platform Integrations
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `search_query` | string | `"vehicles"` | Search keywords (e.g. `toyota camry`, `iphone 15`, `leather sofa`) |
-| `city_slug` | string | `"losangeles"` | Target city (e.g. `losangeles`, `newyork`, `chicago`, `miami`, `london`) |
-| `start_urls` | array | `[]` | Paste any direct Facebook Marketplace search, category, or listing URLs |
-| `min_price` | int | `1000` | Minimum price filter |
-| `max_price` | int | `10000` | Maximum price filter |
-| `max_results` | int | `100` | Total listings you wish to collect |
-| `days_since_listed` | int | `7` | Maximum listing age in days (e.g. `1` for last 24 hours, `7` for past week) |
-| `sort_by` | string | `"best_match"` | Sort options: `best_match`, `price_ascend`, `creation_time_descend`, `distance_ascend` |
-| `include_all_photos` | boolean | `true` | Scrape full HD photo gallery (10–30+ images). Disable for primary photo only |
-| `enable_seller_intel` | boolean | `false` | Deep scrape seller profile for star rating, review count, and join year |
-| `fast_mode` | boolean | `false` | Rapid search mode: scrapes search feed data only without opening listing pages |
-| `concurrency` | int | `5` | Parallel workers (1–10). Higher = faster |
+Your scraped dataset can be downloaded or synced in multiple formats:
+* **Formats**: JSON, CSV, Excel (XLSX), XML, HTML Table, RSS.
+* **Integrations**: Connect directly to Google Sheets, Make, Zapier, Airbyte, or Keboola using built-in Apify integrations.
+* **Automations**: Set up webhooks to automatically trigger notifications or downstream processing upon scrape completion.
 
 ---
 
-## 💡 Quick Integration (Python Example)
+## 💡 Developer Integration Examples
+
+### Python (apify-client)
 
 ```python
 from apify_client import ApifyClient
 
 client = ApifyClient("YOUR_APIFY_API_TOKEN")
 
-run = client.actor("unitbytes/facebook-marketplace-scraper\").call(
+run = client.actor("unitbytes/facebook-marketplace-scraper").call(
     run_input={
         "search_query": "honda civic",
         "city_slug": "chicago",
-        "min_price": 1000,
-        "max_price": 8000,
+        "min_price": 2000,
+        "max_price": 10000,
         "max_results": 50,
         "include_all_photos": True,
-        "enable_seller_intel": False
+        "enable_seller_intel": False,
     }
 )
 
@@ -203,8 +255,29 @@ for item in client.dataset(run["defaultDatasetId"]).iterate_items():
     print(f"{item['title']} - {item['price']} - {len(item.get('images', []))} photos")
 ```
 
----
+### Node.js / JavaScript (apify-client)
 
+```javascript
+import { ApifyClient } from 'apify-client';
+
+const client = new ApifyClient({
+    token: 'YOUR_APIFY_API_TOKEN',
+});
+
+const run = await client.actor('unitbytes/facebook-marketplace-scraper').call({
+    search_query: 'honda civic',
+    city_slug: 'chicago',
+    min_price: 2000,
+    max_price: 10000,
+    max_results: 50,
+    include_all_photos: true,
+});
+
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+items.forEach((item) => {
+    console.log(`${item.title} - ${item.price} - ${item.url}`);
+});
+```
 
 ---
 
@@ -239,16 +312,22 @@ Open a ready-to-run prompt about Facebook Marketplace Scraper in your favorite A
 ## ❓ Frequently Asked Questions
 
 **Q: Do I need to buy or configure proxies?**  
-A: No. Premium proxy rotation is included automatically.
+A: No. Premium residential proxy rotation is managed automatically by Apify.
 
 **Q: Do I need a Facebook account or cookies?**  
-A: No. The scraper runs 100% anonymously. You do not need an account or browser sessions.
+A: No. The scraper runs 100% anonymously. You do not need an account, password, or browser session cookies.
 
 **Q: What is the difference between Fast Mode and Standard Mode?**  
-A: Fast Mode only scrapes data visible on the search results page (title, price, primary thumbnail, city, link) at high speeds. Standard Mode deep-scrapes each item page to collect vehicle specs, full descriptions, location coordinates, and HD image carousels.
+A: Fast Mode extracts the core data available on the initial search results page (title, price, primary thumbnail, city, link) at high speed. Standard Mode deep-scrapes each item page to collect vehicle specs (VIN, mileage, transmission), full descriptions, GPS coordinates, and HD image carousels.
 
 **Q: Can I scrape more than 1,000 listings in a city?**  
 A: Yes! The scraper automatically engages intelligent price-range sharding whenever you request large result volumes, seamlessly bypassing Facebook's 1,000 item limit.
+
+**Q: Why did my run finish with fewer results than max_results?**  
+A: If a specific city or search term only has a small number of active listings matching your filters, the scraper will safely terminate once all matching listings have been captured to prevent unnecessary proxy charges.
+
+**Q: Can I schedule automatic recurring runs?**  
+A: Yes! Use Apify's built-in **Schedule** tab to run this scraper on a recurring cron schedule (e.g. every hour or daily at 8 AM) and send new listings directly to your webhook or Google Sheet.
 
 ---
 
