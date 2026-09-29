@@ -126,12 +126,11 @@ Every listing is enriched with structured data and automatic category detection:
 * **Make, Model, Trim & Year**
 * **Dealership or Private Seller status**
 
-### ⭐ Seller Intelligence (Optional Add-On)
-* **Seller Name & Profile Link**
-* **Star Rating** (e.g. `4.9` ⭐)
-* **Review Count** (e.g. `24 reviews`)
-* **Facebook Join Year** (e.g. `Joined Facebook in 2018`)
-* **Anonymous Seller ID** (track repeat sellers across listings)
+### 👤 Seller & Contact Metadata
+* **Seller Type** (`"PRIVATE_SELLER"` vs `"DEALERSHIP"`)
+* **Dealership Name** (for dealer-posted listings)
+* **Seller Phone Number** (automatically extracted from description if provided by seller)
+* **Pseudo Seller ID** (unique anonymous seller hash to monitor repeat flippers/dealers)
 
 ---
 
@@ -148,13 +147,13 @@ Every input parameter in `INPUT_SCHEMA.json` is fully configurable:
 | `max_price` | integer | `10000` | Maximum price filter in dollars |
 | `max_results` | integer | `10` | Maximum number of listings to collect |
 | `days_since_listed` | integer | `7` | Maximum listing age in days (`1` = last 24h, `7` = past week, `30` = past month) |
-| `sort_by` | string | `"price_ascend"` | Sort options: `best_match`, `price_ascend`, `distance_ascend`, `creation_time_descend` |
-| `item_condition` | string | `"used"` | Condition filter: `all`, `new`, `used` |
+| `sort_by` | string | `"best_match"` | Sort options: `best_match`, `price_ascend`, `distance_ascend`, `creation_time_descend` |
+| `item_condition` | string | `"all"` | Condition filter: `all`, `new`, `used` |
 | `radius` | integer | `500` | Search radius in kilometers (up to 500km) |
 | `category_id` | string | `""` | Optional Facebook Marketplace Category ID |
-| `fast_mode` | boolean | `false` | Scrapes search feed results rapidly without opening individual listing pages |
-| `include_all_photos` | boolean | `true` | Extract full 10–30+ HD photo carousel & videos via GraphQL. Disable for primary photo only |
-| `enable_seller_intel` | boolean | `false` | Deep-scrape seller profile for star rating, review count, and join year |
+| `scrape_details` | boolean | `false` | Enable deep inspection (full descriptions, HD photo carousel, vehicle specs, and seller type) |
+| `include_all_photos` | boolean | `true` | Extract full 10–30+ HD photo carousel & media via GraphQL. Disable for primary photo only |
+| `only_new_listings` | boolean | `false` | Enable 24h rolling TTL deduplication to scrape only newly posted items in cron runs |
 | `concurrency` | integer | `5` | Parallel workers (1–10). Recommended: 3–5 |
 | `proxy_configuration` | object | `Residential` | Built-in proxy configuration. Apify Residential proxies recommended |
 
@@ -170,12 +169,12 @@ Every input parameter in `INPUT_SCHEMA.json` is fully configurable:
   "max_price": 12000,
   "max_results": 50,
   "days_since_listed": 7,
-  "sort_by": "price_ascend",
-  "item_condition": "used",
+  "sort_by": "best_match",
+  "item_condition": "all",
   "radius": 500,
-  "fast_mode": false,
+  "scrape_details": false,
   "include_all_photos": true,
-  "enable_seller_intel": false,
+  "only_new_listings": false,
   "concurrency": 5,
   "proxy_configuration": {
     "useApifyProxy": true,
@@ -196,8 +195,9 @@ Every input parameter in `INPUT_SCHEMA.json` is fully configurable:
   "price": "$5,500",
   "city": "Los Angeles",
   "state": "CA",
-  "condition": "USED",
-  "description": "Clean title, 1 owner vehicle. Recently serviced with new brakes and tires...",
+  "condition": "Used - Good",
+  "category": "Vehicles > Cars & Trucks > Sedans",
+  "description": "Clean title, 1 owner vehicle. Recently serviced with new brakes and tires. Call or text 555-123-4567 for test drive...",
   "images": [
     "https://scontent.xx.fbcdn.net/v/t39.30808-6/example_camry_front.jpg",
     "https://scontent.xx.fbcdn.net/v/t39.30808-6/example_camry_interior.jpg",
@@ -210,10 +210,9 @@ Every input parameter in `INPUT_SCHEMA.json` is fully configurable:
   "mileage": 142000,
   "transmission": "AUTOMATIC",
   "fuel_type": "GASOLINE",
-  "seller_name": "David",
-  "seller_rating": 5.0,
-  "seller_review_count": 12,
-  "seller_join_year": "Joined Facebook in 2016",
+  "seller_type": "PRIVATE_SELLER",
+  "seller_phone": "555-123-4567",
+  "pseudo_seller_id": "anon_1c373039bfed8879",
   "is_sold": false,
   "is_pending": false
 }
